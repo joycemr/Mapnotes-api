@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Resource, Api, marshal
+from flask_restful import Resource, Api, marshal, reqparse
 import json
 
 app = Flask(__name__)
@@ -28,20 +28,23 @@ class NotesRepository:
         self.notes_dict[id] = note
         return self.notes_dict[id]
 
-
 class MapnotesController(Resource):
 
     notesRepo = NotesRepository()
+
+    parser = reqparse.RequestParser()
+    parser.add_argument('title')
+    parser.add_argument('body')
 
     def get(self):
         retList = []
         for note in self.notesRepo.notes_dict.items():
             retList.append(json.dumps(note[1].__dict__))
         return retList
-        # return json.dumps(self.notesRepo.__dict__)
 
-    def put(self):
-        newNote = self.notesRepo.save_note(request.form['title'], request.form['body'])
+    def post(self):
+        args = self.parser.parse_args()
+        newNote = self.notesRepo.save_note(args['title'], args['body'])
         return json.dumps(newNote.__dict__)
 
 
