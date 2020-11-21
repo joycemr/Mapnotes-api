@@ -34,7 +34,11 @@ class MapnotesController(Resource):
     notesRepo = NotesRepository()
 
     def get(self):
-        return json.dumps(self.notesRepo.__dict__)
+        retList = []
+        for note in self.notesRepo.notes_dict.items():
+            retList.append(json.dumps(note[1].__dict__))
+        return retList
+        # return json.dumps(self.notesRepo.__dict__)
 
     def put(self):
         newNote = self.notesRepo.save_note(request.form['title'], request.form['body'])
