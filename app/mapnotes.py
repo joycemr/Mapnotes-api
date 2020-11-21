@@ -26,7 +26,7 @@ class NotesRepository:
         id = self.get_next_id()
         note = Note(id, title, body)
         self.notes_dict[id] = note
-        return self.notes_dict[1]
+        return self.notes_dict[id]
 
 
 class MapnotesController(Resource):
