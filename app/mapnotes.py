@@ -33,8 +33,8 @@ class MapnotesController(Resource):
     notesRepo = NotesRepository()
 
     parser = reqparse.RequestParser()
-    parser.add_argument('title')
-    parser.add_argument('body')
+    parser.add_argument('title', type=str)
+    parser.add_argument('body', type=str)
 
     def get(self):
         retList = []
