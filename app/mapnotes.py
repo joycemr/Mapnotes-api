@@ -53,14 +53,13 @@ class MapnotesController(Resource):
     def post(self):
         args = self.parser.parse_args()
         newNote = notesRepo.save_note(args['title'], args['body'])
-        return newNote
+        return newNote, 201
 
 class MapnoteController(Resource):
 
     def delete(self, note_id):
-        note_id_int = int(note_id)
-        self.abort_if_todo_doesnt_exist(note_id_int)
-        notesRepo.delete_note(note_id_int)
+        self.abort_if_todo_doesnt_exist(note_id)
+        notesRepo.delete_note(note_id)
         return '', 204
 
     def abort_if_todo_doesnt_exist(self, note_id):
@@ -69,7 +68,7 @@ class MapnoteController(Resource):
 
 
 api.add_resource(MapnotesController, '/notes')
-api.add_resource(MapnoteController, '/notes/<note_id>')
+api.add_resource(MapnoteController, '/notes/<int:note_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
