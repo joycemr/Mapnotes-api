@@ -15,7 +15,6 @@ resource_fields = {
     'id': fields.Integer,
     'title': fields.String,
     'body': fields.String,
-    # 'uri': fields.Url('todo_ep')
 }
 
 class NotesRepository:
@@ -56,20 +55,21 @@ class MapnotesController(Resource):
         newNote = notesRepo.save_note(args['title'], args['body'])
         return newNote
 
-# class MapnoteController:
+class MapnoteController(Resource):
 
-#     def delete(self, note_id):
-#         self.abort_if_todo_doesnt_exist(note_id)
-#         notesRepo.delete_note(note_id)
-#         return '', 204
+    def delete(self, note_id):
+        note_id_int = int(note_id)
+        self.abort_if_todo_doesnt_exist(note_id_int)
+        notesRepo.delete_note(note_id_int)
+        return '', 204
 
-#     def abort_if_todo_doesnt_exist(self, note_id):
-#         if note_id not in notesRepo.notes_dict:
-#             abort(404, message="Mapnote {} doesn't exist".format(note_id))
+    def abort_if_todo_doesnt_exist(self, note_id):
+        if note_id not in notesRepo.notes_dict:
+            abort(404, message="Mapnote {} doesn't exist".format(note_id))
 
 
 api.add_resource(MapnotesController, '/notes')
-# api.add_resource(MapnoteController, '/notes/<note_id>')
+api.add_resource(MapnoteController, '/notes/<note_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
