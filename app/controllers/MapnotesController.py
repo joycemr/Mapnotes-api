@@ -1,6 +1,6 @@
 from flask_restful import Resource, Api, abort, reqparse, fields, marshal_with
 from repositories.NotesRepository import notesRepo
-from data.Note import resource_fields, parser
+from data.Note import resource_fields
 
 
 class MapnotesController(Resource):
@@ -14,6 +14,11 @@ class MapnotesController(Resource):
 
     @marshal_with(resource_fields)
     def post(self):
-        args = parser.parse_args()
+        args = self.parser.parse_args()
         newNote = notesRepo.save_note(args['title'], args['body'])
         return newNote, 201
+
+    # Incoming argument parser
+    parser = reqparse.RequestParser()
+    parser.add_argument('title', type=str)
+    parser.add_argument('body', type=str)

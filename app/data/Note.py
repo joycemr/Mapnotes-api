@@ -1,4 +1,4 @@
-from flask_restful import fields, reqparse
+from flask_restful import fields
 
 class Note:
 
@@ -11,7 +11,3 @@ class Note:
 resource_fields = {'id': fields.Integer,
     'title': fields.String,
     'body': fields.String,}
-
-parser = reqparse.RequestParser()
-parser.add_argument('title', type=str)
-parser.add_argument('body', type=str)
