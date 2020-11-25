@@ -1,15 +1,9 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, abort, reqparse, fields, marshal_with
+from repositories.NotesRepository import notesRepo
 
 app = Flask(__name__)
 api = Api(app)
-
-class Note:
-
-    def __init__(self, id, title, body):
-        self.id = id
-        self.title = title
-        self.body = body
 
 resource_fields = {
     'id': fields.Integer,
@@ -17,25 +11,7 @@ resource_fields = {
     'body': fields.String,
 }
 
-class NotesRepository:
 
-    id_seq = 0
-    notes_dict = {}
-
-    def get_next_id(self):
-        self.id_seq = self.id_seq + 1
-        return self.id_seq
-
-    def save_note(self, title, body):
-        id = self.get_next_id()
-        note = Note(id, title, body)
-        self.notes_dict[id] = note
-        return self.notes_dict[id]
-
-    def delete_note(self, id):
-        self.notes_dict.pop(id)
-
-notesRepo = NotesRepository()
 class MapnotesController(Resource):
 
     parser = reqparse.RequestParser()
