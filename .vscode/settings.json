@@ -1,0 +1,7 @@
+{
+	"python.linting.enabled": false,
+	"python.pythonPath": "${workspaceRoot}/venv",
+	"python.venvPath": "${workspaceRoot}/venv",
+	"python.analysis.extraPaths": ["api"],
+	"vsintellicode.python.completionsEnabled": true,
+}
