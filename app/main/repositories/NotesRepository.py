@@ -1,4 +1,4 @@
-from data.Note import Note
+from main.data.Note import Note
 
 class NotesRepository:
 

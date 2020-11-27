@@ -1,6 +1,6 @@
 from flask_restful import Resource, Api, abort, reqparse, fields, marshal_with
-from repositories.NotesRepository import notesRepo
-from data.Note import resource_fields
+from main.repositories.NotesRepository import notesRepo
+from main.data.Note import resource_fields
 
 
 class MapnotesController(Resource):
