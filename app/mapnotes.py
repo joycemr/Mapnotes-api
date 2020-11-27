@@ -6,8 +6,6 @@ from flask import Flask
 from flask_restful import Resource, Api, abort, reqparse, fields, marshal_with
 from main.controllers.MapnoteController import MapnoteController
 from main.controllers.MapnotesController import MapnotesController
-# from controllers.MapnoteController import MapnoteController
-# from controllers.MapnotesController import MapnotesController
 
 app = Flask(__name__)
 api = Api(app)
