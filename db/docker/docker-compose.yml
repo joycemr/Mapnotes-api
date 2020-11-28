@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgis/postgis:12-master
+    container_name: mapnotes-flask-restful-db
+    volumes:
+      - ../sql/mapNotes.sql:/docker-entrypoint-initdb.d/mapNotes.sql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=notes
+      - POSTGRES_USER=notes
+      - POSTGRES_PASSWORD=notes
