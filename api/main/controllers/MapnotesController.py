@@ -20,6 +20,16 @@ class MapnotesController(Resource):
         newNote = notesRepo.save_note(args['title'], args['body'])
         return newNote, 201
 
+    def delete(self, note_id):
+        self.abort_if_todo_does_not_exist(note_id)
+        notesRepo.delete_note(note_id)
+        return '', 204
+
+    def abort_if_todo_does_not_exist(self, note_id):
+        if note_id not in notesRepo.notes_dict:
+            abort(404, message="Mapnote {} doesn't exist".format(note_id))
+
+
     # Incoming argument parser
     parser = reqparse.RequestParser()
     parser.add_argument('title', type=str)
