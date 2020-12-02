@@ -14,4 +14,4 @@ api.add_resource(MapnotesController, '/notes')
 api.add_resource(MapnoteController, '/notes/<int:note_id>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
