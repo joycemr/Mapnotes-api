@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "10ef32bd-ec2c-4147-8806-57f818832b95",
+		"name": "MapNotes API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Mapnotes",
+			"item": [
+				{
+					"name": "/notes return empty list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68fc5c46-582e-4a20-bc00-7627bdea3a04",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => { ",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"test empty body\", () => {",
+									"    pm.expect(pm.response.json()).to.eql([]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notes"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e426336d-87a6-4daf-be84-d9ea5a3cbc6d",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"test id\", () => {",
+									"    pm.expect(response.id).to.eql(1);",
+									"});",
+									"pm.test(\"test title\", () => {",
+									"    pm.expect(response.title).to.eql(\"Postman Test\");",
+									"});",
+									"pm.test(\"test body\", () => {",
+									"    pm.expect(response.body).to.eql(\"Postman test body text\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Postman Test\",\n    \"body\": \"Postman test body text\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notes"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes return one note",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "031b69ab-e10f-4569-81a2-d34f738487a5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"test array length\", () => {",
+									"    pm.expect(response).length(1);",
+									"});",
+									"",
+									"const note = response[0];",
+									"",
+									"pm.test(\"test id\", () => {",
+									"    pm.expect(note.id).to.eql(1);",
+									"});",
+									"pm.test(\"test title\", () => {",
+									"    pm.expect(note.title).to.eql(\"Postman Test\");",
+									"});",
+									"pm.test(\"test body\", () => {",
+									"    pm.expect(note.body).to.eql(\"Postman test body text\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notes"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "53663857-823c-4eb2-8096-a6b2a8302867",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => { ",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/notes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notes",
+								"1"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes empty title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88a44b53-fd18-4f86-b6ac-09f65999476d",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"body\": \"Postman test body text\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notes"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				}
+			],
+			"description": "Tests for the Mapnotes text api",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
