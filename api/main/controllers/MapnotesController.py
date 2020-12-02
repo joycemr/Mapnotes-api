@@ -15,6 +15,8 @@ class MapnotesController(Resource):
     @marshal_with(resource_fields)
     def post(self):
         args = self.parser.parse_args()
+        if not args['title']:
+            abort(400, message="Mapnote must have a title")
         newNote = notesRepo.save_note(args['title'], args['body'])
         return newNote, 201
 
