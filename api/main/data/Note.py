@@ -10,7 +10,7 @@ class Note(db.Model):
     title = db.Column(db.String(255))
     body = db.Column(db.Text)
 
-    def __init__(self, title, body):
+    def __init__(self, title, body, **kwargs):
         self.title = title
         self.body = body
 
