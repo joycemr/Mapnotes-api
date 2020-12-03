@@ -10,14 +10,16 @@
 			"request": "launch",
 			"module": "flask",
 			"env": {
-				"FLASK_APP": "app/mapnotes.py",
+				"FLASK_APP": "app",
 				"FLASK_ENV": "development",
 				"FLASK_DEBUG": "0",
 				"PYTHONPATH": "${workspaceRoot}/venv"
 			},
 			"args": [
 				"run",
-				"--no-debugger"
+				"--no-debugger",
+				"--port",
+				"8080"
 			],
 			"jinja": true
 		}
