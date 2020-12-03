@@ -14,7 +14,9 @@ class NotesRepository:
 
 
     def delete_note(self, id):
-        self.notes_dict.pop(id)
+        note = Note.query.get(id)
+        db.session.delete(note)
+        db.session.commit()
 
 # Global Notes Repo... this will go away when persistence is introduced
 notesRepo = NotesRepository()

@@ -7,9 +7,6 @@ class MapnotesController(Resource):
 
     @marshal_with(resource_fields)
     def get(self):
-        # retList = []
-        # for note in notesRepo.notes_dict.items():
-        #     retList.append(note[1])
         return notesRepo.get_notes()
 
     @marshal_with(resource_fields)
@@ -21,7 +18,6 @@ class MapnotesController(Resource):
         return newNote, 201
 
     def delete(self, note_id):
-        self.abort_if_todo_does_not_exist(note_id)
         notesRepo.delete_note(note_id)
         return '', 204
 
