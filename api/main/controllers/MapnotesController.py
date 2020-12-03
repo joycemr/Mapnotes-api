@@ -7,10 +7,10 @@ class MapnotesController(Resource):
 
     @marshal_with(resource_fields)
     def get(self):
-        retList = []
-        for note in notesRepo.notes_dict.items():
-            retList.append(note[1])
-        return retList
+        # retList = []
+        # for note in notesRepo.notes_dict.items():
+        #     retList.append(note[1])
+        return notesRepo.get_notes()
 
     @marshal_with(resource_fields)
     def post(self):
