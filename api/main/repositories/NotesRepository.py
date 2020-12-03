@@ -9,12 +9,17 @@ class NotesRepository:
         db.session.commit()
         return note
 
+    def get_note(self, note_id):
+        note = Note.query.get(note_id)
+        if not note:
+            return False
+        return note
+
     def get_notes(self):
         return Note.query.all()
 
-
-    def delete_note(self, id):
-        note = Note.query.get(id)
+    def delete_note(self, note_id):
+        note = Note.query.get(note_id)
         if not note:
             return False
         db.session.delete(note)

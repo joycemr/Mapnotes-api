@@ -17,11 +17,6 @@ class MapnotesController(Resource):
         newNote = notesRepo.save_note(args['title'], args['body'])
         return newNote, 201
 
-    def delete(self, note_id):
-        del_bool = notesRepo.delete_note(note_id)
-        if not del_bool:
-            abort(404, message="Mapnote id={} doesn't exist".format(note_id))
-        return '', 204
 
 
     # Incoming argument parser
