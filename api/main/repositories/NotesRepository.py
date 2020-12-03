@@ -15,8 +15,11 @@ class NotesRepository:
 
     def delete_note(self, id):
         note = Note.query.get(id)
+        if not note:
+            return False
         db.session.delete(note)
         db.session.commit()
+        return True
 
-# Global Notes Repo... this will go away when persistence is introduced
+# There's gotta be a better way...
 notesRepo = NotesRepository()
