@@ -1,3 +1,4 @@
+from api import db
 from api.main.data.Note import Note
 
 class NotesRepository:
@@ -13,7 +14,8 @@ class NotesRepository:
         id = self.get_next_id()
         note = Note(id, title, body)
         self.notes_dict[id] = note
-        # db.session.add(note)
+        db.session.add(note)
+        db.session.commit()
         return self.notes_dict[id]
 
     def delete_note(self, id):
