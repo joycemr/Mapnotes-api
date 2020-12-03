@@ -9,6 +9,6 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB=notes
-      - POSTGRES_USER=notes
-      - POSTGRES_PASSWORD=notes
+      - POSTGRES_DB=mapnotes_api
+      - POSTGRES_USER=mapnotes_api_user
+      - POSTGRES_PASSWORD=password
