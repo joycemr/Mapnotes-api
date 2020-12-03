@@ -3,20 +3,13 @@ from api.main.data.Note import Note
 
 class NotesRepository:
 
-    id_seq = 0
     notes_dict = {}
 
-    def get_next_id(self):
-        self.id_seq = self.id_seq + 1
-        return self.id_seq
-
     def save_note(self, title, body):
-        id = self.get_next_id()
-        note = Note(id, title, body)
-        self.notes_dict[id] = note
+        note = Note(title, body)
         db.session.add(note)
         db.session.commit()
-        return self.notes_dict[id]
+        return note
 
     def delete_note(self, id):
         self.notes_dict.pop(id)
