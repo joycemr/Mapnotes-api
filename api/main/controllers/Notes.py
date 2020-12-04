@@ -3,7 +3,7 @@ from api.main.repositories.NotesRepository import notesRepo
 from api.main.data.Note import resource_fields
 
 
-class MapnoteController(Resource):
+class Notes(Resource):
 
     @marshal_with(resource_fields)
     def get(self, note_id):
