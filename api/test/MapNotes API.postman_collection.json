@@ -9,7 +9,7 @@
 			"name": "Mapnotes",
 			"item": [
 				{
-					"name": "/notes return empty list",
+					"name": "/notes return list",
 					"event": [
 						{
 							"listen": "test",
@@ -20,10 +20,13 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"test empty body\", () => {",
-									"    pm.expect(pm.response.json()).to.eql([]);",
-									"});",
-									""
+									"// pm.test(\"test empty body\", () => {",
+									"//     pm.expect(pm.response.json()).to.eql([]);",
+									"// });",
+									"",
+									"pm.test(\"test body is a list\", () => {",
+									"    pm.expect(pm.response.json().length).to.be.within(0,10000);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -33,12 +36,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/notes",
-							"protocol": "http",
+							"raw": "{{url}}/notes",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "8080",
 							"path": [
 								"notes"
 							]
@@ -58,6 +59,8 @@
 									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
 									"",
 									"const response = pm.response.json();",
+									"",
+									"postman.setEnvironmentVariable(\"noteId\", response.id);",
 									"",
 									"pm.test(\"test id is number\", () => {",
 									"    pm.expect(response.id).to.be.a('number');",
@@ -88,12 +91,58 @@
 							"raw": "{\n    \"title\": \"Postman Test\",\n    \"body\": \"Postman test body text\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/notes",
-							"protocol": "http",
+							"raw": "{{url}}/notes",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "8080",
+							"path": [
+								"notes"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes return non-empty list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7af17a65-4c0f-41be-9ae9-b023e38456a3",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => { ",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"test body has at least on note\", () => {",
+									"    pm.expect(pm.response.json().length).to.be.within(1,10000);",
+									"});",
+									"",
+									"const note = pm.response.json()[0];",
+									"",
+									"pm.test(\"test id is Number\", () => {",
+									"    pm.expect(note.id).to.be.a('number')",
+									"});",
+									"pm.test(\"test title\", () => {",
+									"    pm.expect(note.title).to.eql(\"Postman Test\");",
+									"});",
+									"pm.test(\"test body\", () => {",
+									"    pm.expect(note.body).to.eql(\"Postman test body text\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/notes",
+							"host": [
+								"{{url}}"
+							],
 							"path": [
 								"notes"
 							]
@@ -132,15 +181,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/notes/1",
-							"protocol": "http",
+							"raw": "{{url}}/notes/{{noteId}}",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "8080",
 							"path": [
 								"notes",
-								"1"
+								"{{noteId}}"
 							]
 						},
 						"description": "check for empty Mapnotes list"
@@ -168,15 +215,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/notes/1",
-							"protocol": "http",
+							"raw": "{{url}}/notes/{{noteId}}",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "8080",
 							"path": [
 								"notes",
-								"1"
+								"{{noteId}}"
 							]
 						},
 						"description": "check for empty Mapnotes list"
@@ -204,15 +249,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/notes/1",
-							"protocol": "http",
+							"raw": "{{url}}/notes/{{noteId}}",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "8080",
 							"path": [
 								"notes",
-								"1"
+								"{{noteId}}"
 							]
 						},
 						"description": "check for empty Mapnotes list"
@@ -250,12 +293,10 @@
 							"raw": "{\n    \"title\": \"\",\n    \"body\": \"Postman test body text\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/notes",
-							"protocol": "http",
+							"raw": "{{url}}/notes",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "8080",
 							"path": [
 								"notes"
 							]
