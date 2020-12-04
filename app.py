@@ -4,7 +4,7 @@ sys.dont_write_bytecode = True
 
 from api import app, api
 
-from api.main.controllers.NotesList import NotesList
+from api.main.controllers.Notes import NotesList
 from api.main.controllers.Notes import Notes
 api.add_resource(NotesList, '/notes')
 api.add_resource(Notes, '/notes/<int:note_id>')
