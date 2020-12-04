@@ -59,8 +59,8 @@
 									"",
 									"const response = pm.response.json();",
 									"",
-									"pm.test(\"test id\", () => {",
-									"    pm.expect(response.id).to.eql(1);",
+									"pm.test(\"test id is number\", () => {",
+									"    pm.expect(response.id).to.be.a('number');",
 									"});",
 									"pm.test(\"test title\", () => {",
 									"    pm.expect(response.title).to.eql(\"Postman Test\");",
@@ -112,16 +112,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
 									"",
-									"const response = pm.response.json();",
+									"const note = pm.response.json();",
 									"",
-									"pm.test(\"test array length\", () => {",
-									"    pm.expect(response).length(1);",
-									"});",
-									"",
-									"const note = response[0];",
-									"",
-									"pm.test(\"test id\", () => {",
-									"    pm.expect(note.id).to.eql(1);",
+									"pm.test(\"test id is Number\", () => {",
+									"    pm.expect(note.id).to.be.a('number')",
 									"});",
 									"pm.test(\"test title\", () => {",
 									"    pm.expect(note.title).to.eql(\"Postman Test\");",
@@ -138,14 +132,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/notes",
+							"raw": "http://localhost:8080/notes/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"notes"
+								"notes",
+								"1"
 							]
 						},
 						"description": "check for empty Mapnotes list"
@@ -162,6 +157,42 @@
 								"exec": [
 									"pm.test(\"Status code is 204\", () => { ",
 									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/notes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notes",
+								"1"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes return 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "556fc83f-39e2-4fbd-9bd6-8e989a763d73",
+								"exec": [
+									"pm.test(\"Delete non-existent note: Status code is 404\", () => { ",
+									"    pm.response.to.have.status(404);",
 									"});",
 									""
 								],
