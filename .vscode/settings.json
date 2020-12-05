@@ -4,4 +4,7 @@
 	"python.venvPath": "${workspaceRoot}/venv",
 	"python.analysis.extraPaths": ["api"],
 	"vsintellicode.python.completionsEnabled": true,
+	"cSpell.words": [
+		"getenv"
+	],
 }
