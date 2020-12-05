@@ -12,3 +12,28 @@ services:
       - POSTGRES_DB=mapnotes_api
       - POSTGRES_USER=mapnotes_api_user
       - POSTGRES_PASSWORD=password
+
+  api:
+    container_name: mapnotes-flask-restful-api
+    build: .
+    environment:
+      - DB_HOST=db
+      - DB_NAME=mapnotes_api
+      - DB_USER=mapnotes_api_user
+      - DB_PASSWORD=password
+      - DB_PORT=5432
+    ports:
+      - "8080:5000"
+
+  newman:
+    image: postman/newman
+    container_name: newman-api-tests
+    command:
+      run postman_collection.json
+      -e postman_environment.json
+      # -r html, cli
+      # --reporter-html-export reports/api_postman_test_run.html
+      # --reporter-html-template reports/customTemplate.hbs
+    volumes:
+      - ./api/test:/etc/newman
+
