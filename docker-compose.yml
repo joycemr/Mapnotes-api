@@ -23,26 +23,21 @@ services:
       - DB_PASSWORD=password
       - DB_PORT=5432
     ports:
-      - "8080:5000"
+      - "5000:5000"
     depends_on:
       - "db"
     command: ["./wait-for-it.sh", "db:5432", "--", "flask", "run"]
-    # command: ["python", "app.py"]
+    # This does not work...not sure why
+    # command: ["./wait-for-it.sh", "db:5432", "--", "python", "app.py"]
 
   newman:
     image: postman/newman
     container_name: newman-api-tests
     depends_on:
       - "api"
-    # command: ["./etc/newman/wait-for-it.sh", "api:5000", "--", "run postman_collection.json -e postman_environment.json"]
-      # run postman_collection.json
-      # -e postman_environment.json
     command:
       run postman_collection.json
       -e postman_environment.json
-      # -r html, cli
-      # --reporter-html-export reports/api_postman_test_run.html
-      # --reporter-html-template reports/customTemplate.hbs
     volumes:
       - ./api/test:/etc/newman
 
