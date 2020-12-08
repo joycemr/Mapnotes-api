@@ -1,10 +1,11 @@
-from flask_restful import Resource, Api, abort, reqparse, fields, marshal_with
+from flask_restful import Resource, abort, reqparse, marshal_with
 from api.main.repositories.NotesRepository import notesRepo
 from api.main.data.Note import resource_fields
 
 
 class NotesList(Resource):
 
+    # TODO can I use flask request instead of this?
     # Incoming argument parser
     parser = reqparse.RequestParser()
     parser.add_argument('title', type=str)
