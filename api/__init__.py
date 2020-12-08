@@ -2,8 +2,10 @@ from os import getenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api, abort, reqparse, fields, marshal_with
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, origins="*")
 
 db_host = getenv('DB_HOST')
 db_user = getenv('DB_USER')
