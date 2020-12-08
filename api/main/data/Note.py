@@ -15,6 +15,7 @@ class Note(db.Model):
         self.body = body
 
 
-resource_fields = {'id': fields.Integer,
+resource_fields = {
+    'id': fields.Integer,
     'title': fields.String,
     'body': fields.String,}
