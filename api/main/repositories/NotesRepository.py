@@ -3,6 +3,20 @@ from api.main.data.Note import Note
 
 class NotesRepository:
 
+    def save_a_note(self, Note):
+        """ save an existing Note
+
+        Args:
+            Note (Note): a map note
+
+        Returns:
+            boolean: True if okay, False if not
+        """
+        db.session.add(Note)
+        db.session.commit()
+        return True
+
+    # TODO change name to save_new_note
     def save_note(self, title, body):
         """ save a note to the database
 
