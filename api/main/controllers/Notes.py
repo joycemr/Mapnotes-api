@@ -1,6 +1,6 @@
 from flask_restful import Resource, abort, reqparse, marshal_with
 from api.main.repositories.NotesRepository import notesRepo
-from api.main.data.Note import resource_fields
+from api.main.data.Note import Note, resource_fields
 
 
 class NotesList(Resource):
@@ -20,8 +20,8 @@ class NotesList(Resource):
         args = self.parser.parse_args()
         if not args['title']:
             abort(400, message="Mapnote must have a non-null title")
-        newNote = notesRepo.save_note(args['title'], args['body'])
-        return newNote, 201
+        newNote = Note(args['title'], args['body'])
+        return notesRepo.save_note(newNote), 201
 
 
 class Notes(Resource):

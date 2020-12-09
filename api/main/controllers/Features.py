@@ -21,6 +21,6 @@ class Features(Resource):
         for feature in featureCollection.features:
             noteFeature = NoteFeature(feature, note_id)
             note.noteFeatures.append(noteFeature)
-        notesRepo.save_a_note(note)
+        notesRepo.save_note(note)
         return '', 201
 
