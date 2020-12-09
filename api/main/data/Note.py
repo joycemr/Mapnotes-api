@@ -9,11 +9,19 @@ class Note(db.Model):
     id = db.Column(db.Integer, db.Sequence('note_seq'), primary_key=True)
     title = db.Column(db.String(255))
     body = db.Column(db.Text)
+    features = []
 
     def __init__(self, title, body, **kwargs):
         self.title = title
         self.body = body
 
+    def add_feature(self, noteFeature):
+        """ add a feature to this note
+
+        Args:
+            noteFeature (geojson.Feature): a geographic feature
+        """
+        self.features.append(noteFeature)
 
 resource_fields = {
     'id': fields.Integer,
