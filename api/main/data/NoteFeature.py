@@ -4,6 +4,7 @@ from api import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
+from shapely.geometry import shape
 
 
 class NoteFeature(db.Model):
@@ -16,8 +17,9 @@ class NoteFeature(db.Model):
 
 	note = relationship("Note", back_populates="noteFeatures")
 
-	def __init__(self, geometry, notes_id, **kwargs):
-		self.geometry = geometry
+	def __init__(self, feature, notes_id, **kwargs):
+		self.geometry = feature['geometry']['coordinates']
+		self.geometry = 'SRID=4269;POLYGON((-71.1776585052917 42.3902909739571,-71.1776820268866 42.3903701743239, -71.1776063012595 42.3903825660754,-71.1775826583081 42.3903033653531,-71.1776585052917 42.3902909739571))'
 		self.notes_id = notes_id
 
 	def __str__(self):
