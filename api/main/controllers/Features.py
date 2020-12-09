@@ -1,7 +1,8 @@
-from flask_restful import Resource
+from flask_restful import Resource, abort
 from flask import request, jsonify
 from api.main.data.Note import resource_fields
 from geojson import FeatureCollection
+from api.main.repositories.NotesRepository import notesRepo
 
 
 class Features(Resource):
@@ -11,6 +12,9 @@ class Features(Resource):
 
     def put(self, note_id):
         fc = FeatureCollection(request.json)
+        mapNote = notesRepo.get_note(note_id)
+        if not mapNote:
+            abort(404, message="Mapnote id={} doesn't exist".format(note_id))
         for f in fc.features:
             print(f)
         return jsonify(fc)
