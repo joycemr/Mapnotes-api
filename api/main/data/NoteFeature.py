@@ -18,8 +18,7 @@ class NoteFeature(db.Model):
 	note = relationship("Note", back_populates="noteFeatures")
 
 	def __init__(self, feature, notes_id, **kwargs):
-		# convert to geoalchemy2.elements.WKBElement
-		self.geometry = from_shape(shape(feature['geometry']))
+		self.geometry = self.geojson_feature_to_WKBElement(feature)
 		self.notes_id = notes_id
 
 	def __str__(self):
@@ -31,3 +30,12 @@ class NoteFeature(db.Model):
 	def geojson_feature_to_wkt_geom(self, geojson_feature):
 		wkt_geometry = {"type": "Polygon", "coordinates": geojson_feature['geometry']['coordinates']}
 		return json.dumps(wkt_geometry)
+
+	def geojson_feature_to_WKBElement(self, geojson_feature):
+		""" convert a geojson geometry feature to a WKBElement
+		Args:
+			geojson_feature (geojson): a feature in geojson
+		Returns:
+			geoalchemy2.elements.WKBElement: in GEOAlchemy this wraps a WKB value
+		"""
+		return from_shape(shape(geojson_feature['geometry']))
