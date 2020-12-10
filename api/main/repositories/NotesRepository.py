@@ -5,10 +5,8 @@ class NotesRepository:
 
     def save_note(self, note):
         """ save an existing Note
-
         Args:
             Note (Note): a map note
-
         Returns:
             boolean: True if okay, False if not
         """
@@ -18,10 +16,8 @@ class NotesRepository:
 
     def get_note(self, note_id):
         """ return a Note
-
         Args:
             note_id (Integer): Note.id
-
         Returns:
             Note: map note
         """
@@ -32,7 +28,6 @@ class NotesRepository:
 
     def get_notes(self):
         """ get a list of all notes
-
         Returns:
             [Note]: list of all notes
         """
@@ -40,10 +35,8 @@ class NotesRepository:
 
     def delete_note(self, note_id):
         """ delete one note
-
         Args:
             note_id (Integer): note.id
-
         Returns:
             boolean: True if note found, False if not
         """
