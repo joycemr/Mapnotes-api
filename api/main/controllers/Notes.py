@@ -1,5 +1,5 @@
 from flask_restful import Resource, abort, reqparse, marshal_with
-from api.main.repositories.NotesRepository import notesRepo
+from api import notesRepo
 from api.main.data.Note import Note, resource_fields
 
 

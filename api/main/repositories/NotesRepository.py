@@ -53,6 +53,3 @@ class NotesRepository:
         db.session.delete(note)
         db.session.commit()
         return True
-
-# There's gotta be a better way...
-notesRepo = NotesRepository()

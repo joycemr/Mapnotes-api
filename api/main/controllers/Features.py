@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource, abort
 from geojson import FeatureCollection
-from api.main.repositories.NotesRepository import notesRepo
+from api import notesRepo
 
 
 class Features(Resource):

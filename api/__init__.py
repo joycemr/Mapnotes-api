@@ -20,3 +20,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 api = Api(app)
+
+from api.main.repositories.NotesRepository import NotesRepository
+notesRepo = NotesRepository()
