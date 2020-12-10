@@ -49,14 +49,16 @@
 					"response": []
 				},
 				{
-					"name": "/notes",
+					"name": "/notes add a new note",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "e426336d-87a6-4daf-be84-d9ea5a3cbc6d",
 								"exec": [
-									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
 									"",
 									"const response = pm.response.json();",
 									"",
@@ -159,7 +161,9 @@
 							"script": {
 								"id": "031b69ab-e10f-4569-81a2-d34f738487a5",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
 									"",
 									"const note = pm.response.json();",
 									"",
@@ -178,7 +182,7 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
 						"url": {
 							"raw": "{{url}}/notes/{{noteId}}",
@@ -307,6 +311,238 @@
 				}
 			],
 			"description": "Tests for the Mapnotes text api",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Features",
+			"item": [
+				{
+					"name": "/notes/<id>/features return 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "472f01cc-181a-4e9d-962f-043ca7b0de8d",
+								"exec": [
+									"pm.test(\"Status code is 404\", () => {",
+									"    pm.response.to.have.status(404); ",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/notes/0/features",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notes",
+								"0",
+								"features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/notes/<id>/features add featureCollection return 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5887ff09-8108-4211-87e2-cef32cf9f6ce",
+								"exec": [
+									"pm.test(\"add features to non-existent note: Status code is 404\", () => { ",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\": \"FeatureCollection\",\n\"features\": [\n    {\"type\":\"Feature\",\n        \"geometry\": {\n            \"type\":\"Polygon\",\n            \"coordinates\": [\n                [\n                    [\n                        -1,\n                        -1\n                    ],\n                    [\n                        -1.2,\n                        -1.2\n                    ],\n                    [\n                        -1.3,\n                        -1.3\n                    ],\n                    [\n                        -1,\n                        -1\n                    ]\n                ]\n                ]\n            },\"properties\": null\n        },\n    {\"type\":\"Feature\",\n        \"geometry\": {\n            \"type\":\"Polygon\",\n            \"coordinates\": [\n                [\n                    [\n                        -7485586.996581525,\n                        -226235.48735737102\n                    ],\n                    [\n                        -6305296.5676016435,\n                        -2244564.1766917016\n                    ],\n                    [\n                        -8932993.786875354,\n                        -1147342.2853650213\n                    ],\n                    [\n                        -8648270.63382734,\n                        78293.21631647227\n                    ],\n                    [\n                        -7485586.996581525,\n                        -226235.48735737102\n                    ]\n                ]\n                ]\n            },\"properties\": null\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/notes/0/features",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notes",
+								"0",
+								"features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/notes add a new note",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6331e1e5-12a2-4d49-808f-f56264432b9e",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"postman.setEnvironmentVariable(\"noteId\", response.id);",
+									"",
+									"pm.test(\"test id is number\", () => {",
+									"    pm.expect(response.id).to.be.a('number');",
+									"});",
+									"pm.test(\"test title\", () => {",
+									"    pm.expect(response.title).to.eql(\"Postman Test\");",
+									"});",
+									"pm.test(\"test body\", () => {",
+									"    pm.expect(response.body).to.eql(\"Postman test body text\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Postman Test\",\n    \"body\": \"Postman test body text\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes/<id>/features add featureCollection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88f66271-9763-4123-bbdf-3410f25de7cd",
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\": \"FeatureCollection\",\n\"features\": [\n    {\"type\":\"Feature\",\n        \"geometry\": {\n            \"type\":\"Polygon\",\n            \"coordinates\": [\n                [\n                    [\n                        -1,\n                        -1\n                    ],\n                    [\n                        -1.2,\n                        -1.2\n                    ],\n                    [\n                        -1.3,\n                        -1.3\n                    ],\n                    [\n                        -1,\n                        -1\n                    ]\n                ]\n                ]\n            },\"properties\": null\n        },\n    {\"type\":\"Feature\",\n        \"geometry\": {\n            \"type\":\"Polygon\",\n            \"coordinates\": [\n                [\n                    [\n                        -7485586.996581525,\n                        -226235.48735737102\n                    ],\n                    [\n                        -6305296.5676016435,\n                        -2244564.1766917016\n                    ],\n                    [\n                        -8932993.786875354,\n                        -1147342.2853650213\n                    ],\n                    [\n                        -8648270.63382734,\n                        78293.21631647227\n                    ],\n                    [\n                        -7485586.996581525,\n                        -226235.48735737102\n                    ]\n                ]\n                ]\n            },\"properties\": null\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/notes/{{noteId}}/features",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notes",
+								"{{noteId}}",
+								"features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/notes/<id>/features get a FeatureCollection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80d9c85d-fce0-4107-96bf-660c695c2f3a",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{type: FeatureCollection,\nfeatures: [\n    {type:Feature,\n    geometry: {type:Polygon,coordinates: [\n                    [\n                        [\n                            -7485586.996581525,\n                            -226235.48735737102\n                        ],\n                        [\n                            -6305296.5676016435,\n                            -2244564.1766917016\n                        ],\n                        [\n                            -8932993.786875354,\n                            -1147342.2853650213\n                        ],\n                        [\n                            -8648270.63382734,\n                            78293.21631647227\n                        ],\n                        [\n                            -7485586.996581525,\n                            -226235.48735737102\n                        ]\n                    ]\n                ]\n            },properties: null\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/notes/{{noteId}}/features",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notes",
+								"{{noteId}}",
+								"features"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],
