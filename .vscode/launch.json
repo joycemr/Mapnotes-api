@@ -19,7 +19,7 @@
 				"run",
 				"--no-debugger",
 				"--port",
-				"8080"
+				"5000"
 			],
 			"jinja": true
 		}

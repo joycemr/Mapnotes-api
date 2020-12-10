@@ -5,6 +5,8 @@
 	"python.analysis.extraPaths": ["api"],
 	"vsintellicode.python.completionsEnabled": true,
 	"cSpell.words": [
-		"getenv"
+		"getenv",
+		"jsonify"
 	],
+	"python.formatting.provider": "black",
 }
