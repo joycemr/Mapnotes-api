@@ -18,9 +18,10 @@ class Features(Resource):
         note = notesRepo.get_note(note_id)
         if not note:
             abort(404, message="Mapnote id={} doesn't exist".format(note_id))
+        note.noteFeatures.clear()
         for feature in featureCollection.features:
             noteFeature = NoteFeature(feature, note_id)
             note.noteFeatures.append(noteFeature)
         notesRepo.save_note(note)
-        return '', 201
+        return 'FeatureCollection added', 201
 

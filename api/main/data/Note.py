@@ -10,7 +10,7 @@ class Note(db.Model):
     id = db.Column(db.Integer, db.Sequence('note_seq'), primary_key=True)
     title = db.Column(db.String(255))
     body = db.Column(db.Text)
-    noteFeatures = relationship("NoteFeature", back_populates="note")
+    noteFeatures = relationship("NoteFeature", back_populates="note", cascade="all, delete-orphan")
 
     def __init__(self, title, body, **kwargs):
         self.title = title
