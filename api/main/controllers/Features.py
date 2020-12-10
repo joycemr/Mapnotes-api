@@ -5,7 +5,8 @@ from geojson import FeatureCollection
 from api.main.data.NoteFeature import NoteFeature
 from api.main.data.Note import Note
 from api.main.repositories.NotesRepository import notesRepo
-from api import db
+from geoalchemy2 import functions
+from geoalchemy2.shape import to_shape
 
 
 class Features(Resource):
@@ -14,7 +15,9 @@ class Features(Resource):
         note = notesRepo.get_note(note_id)
         if not note:
             abort(404, message="Mapnote id={} doesn't exist".format(note_id))
-
+        for noteFeature in note.noteFeatures:
+            # the geometry returns as a geoalchemy2.elements.WKBElement
+            print(to_shape(noteFeature.geometry))
         return '', 200
 
     def put(self, note_id):
