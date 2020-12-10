@@ -4,6 +4,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
 from shapely.geometry import shape
+from geoalchemy2.shape import from_shape
 import json
 
 class NoteFeature(db.Model):
@@ -17,9 +18,8 @@ class NoteFeature(db.Model):
 	note = relationship("Note", back_populates="noteFeatures")
 
 	def __init__(self, feature, notes_id, **kwargs):
-		# convert to wkt
-		self.geometry = shape(feature['geometry']).wkt
-		# self.geometry = self.geojson_feature_to_wkt_geom(feature)
+		# convert to geoalchemy2.elements.WKBElement
+		self.geometry = from_shape(shape(feature['geometry']))
 		self.notes_id = notes_id
 
 	def __str__(self):
