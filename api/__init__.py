@@ -17,5 +17,6 @@ db_uri = 'postgresql://' + db_user + ':' + db_password + '@' + db_host + '/' + d
 
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 api = Api(app)

@@ -1,12 +1,10 @@
 from typing import Sequence
-from flask_restful import fields
 from api import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
 from shapely.geometry import shape
 import json
-
 
 class NoteFeature(db.Model):
 
@@ -19,10 +17,17 @@ class NoteFeature(db.Model):
 	note = relationship("Note", back_populates="noteFeatures")
 
 	def __init__(self, feature, notes_id, **kwargs):
-		wkt_geometry = {"type": "Polygon", "coordinates": feature['geometry']['coordinates']}
-		self.geometry = json.dumps(wkt_geometry)
-		# self.geometry = 'POLYGON((-71.1776585052917 42.3902909739571,-71.1776820268866 42.3903701743239, -71.1776063012595 42.3903825660754,-71.1775826583081 42.3903033653531,-71.1776585052917 42.3902909739571))'
+		# convert to wkt
+		self.geometry = shape(feature['geometry']).wkt
+		# self.geometry = self.geojson_feature_to_wkt_geom(feature)
 		self.notes_id = notes_id
 
 	def __str__(self):
 		return 'Note_id: {} Feature_id: {} Geometry'.format(self.notes_id, self.id, self.geometry)
+
+	# My Conversion
+	# I made this work by experimentation, but I'll probably stick with the shapely package
+	# just wanted to keep this for posterity
+	def geojson_feature_to_wkt_geom(self, geojson_feature):
+		wkt_geometry = {"type": "Polygon", "coordinates": geojson_feature['geometry']['coordinates']}
+		return json.dumps(wkt_geometry)
