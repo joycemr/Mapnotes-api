@@ -1,6 +1,5 @@
-from typing import Sequence
-from sqlalchemy.orm import backref, relationship
 from flask_restful import fields
+from sqlalchemy.orm import relationship
 from api import db
 
 class Note(db.Model):
@@ -17,7 +16,16 @@ class Note(db.Model):
         self.body = body
 
     def __str__(self):
-        return 'Note_id: {} Title: {} Body: {} Features: {}'.format(self.id, self.title, self.body, self.noteFeatures)
+        return 'Note_id: {} Title: {} Body: {} Features: {}'.format(self.id, self.title, self.body, self.get_featureCollection())
+
+    def get_featureCollection(self):
+        if len(self.noteFeatures) == 0:
+            return {}
+        collection = {"type": "FeatureCollection", "features": []}
+        for noteFeature in self.noteFeatures:
+            collection['features'].append(noteFeature.get_feature())
+        return collection
+
 
 resource_fields = {
     'id': fields.Integer,

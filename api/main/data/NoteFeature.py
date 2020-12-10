@@ -1,13 +1,10 @@
-from typing import Sequence
-from api import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
-from shapely.geometry import shape
-import shapely.wkt
 from geoalchemy2.shape import from_shape, to_shape
-import json
+from shapely.geometry import shape
 import geojson
+from api import db
 
 class NoteFeature(db.Model):
 
@@ -24,14 +21,7 @@ class NoteFeature(db.Model):
 		self.notes_id = notes_id
 
 	def __str__(self):
-		return 'Note_id: {} Feature_id: {} Geometry'.format(self.notes_id, self.id, self.geometry)
-
-	# My Conversion
-	# I made this work by experimentation, but I'll probably stick with the shapely package
-	# just wanted to keep this for posterity
-	def geojson_feature_to_wkt_geom(self, geojson_feature):
-		wkt_geometry = {"type": "Polygon", "coordinates": geojson_feature['geometry']['coordinates']}
-		return json.dumps(wkt_geometry)
+		return 'Note_id: {} Feature_id: {} Geometry'.format(self.notes_id, self.id, self.get_feature())
 
 	def geojson_feature_to_WKBElement(self, geojson_feature):
 		""" convert a geojson geometry feature to a WKBElement
@@ -42,6 +32,6 @@ class NoteFeature(db.Model):
 		"""
 		return from_shape(shape(geojson_feature['geometry']))
 
-	def get_feature_json(self):
+	def get_feature(self):
 		g1 = to_shape(self.geometry)
-		return geojson.Feature(geometry=g1)
+		return geojson.Feature(geometry=g1, properties=None)
