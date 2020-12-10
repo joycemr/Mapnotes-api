@@ -368,7 +368,9 @@
 								"exec": [
 									"pm.test(\"add features to non-existent note: Status code is 404\", () => { ",
 									"    pm.response.to.have.status(404);",
-									"});"
+									"});",
+									"",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -464,9 +466,14 @@
 							"script": {
 								"id": "f952febd-f6a6-43bd-8c59-29f9d04f8697",
 								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200); ",
+									"});",
 									"",
-									"",
-									""
+									"pm.test('Verify empty body', () => {",
+									"    responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.eql({});",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -552,6 +559,14 @@
 									"    pm.response.to.have.status(200); ",
 									"});",
 									"",
+									"pm.test('Validate FeatureCollection', () => {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson.type).to.eql('FeatureCollection');",
+									"    pm.expect(responseJson.features.length).to.be.eql(2);",
+									"    pm.expect(responseJson.features[0].type).to.eql('Feature');",
+									"    pm.expect(responseJson.features[0].geometry.type).to.eql('Polygon');",
+									"    pm.expect(responseJson.features[0].geometry.coordinates[0].length).to.be.gt(0);",
+									"});",
 									""
 								],
 								"type": "text/javascript"
@@ -566,7 +581,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{type: FeatureCollection,\nfeatures: [\n    {type:Feature,\n    geometry: {type:Polygon,coordinates: [\n                    [\n                        [\n                            -7485586.996581525,\n                            -226235.48735737102\n                        ],\n                        [\n                            -6305296.5676016435,\n                            -2244564.1766917016\n                        ],\n                        [\n                            -8932993.786875354,\n                            -1147342.2853650213\n                        ],\n                        [\n                            -8648270.63382734,\n                            78293.21631647227\n                        ],\n                        [\n                            -7485586.996581525,\n                            -226235.48735737102\n                        ]\n                    ]\n                ]\n            },properties: null\n        }\n    ]\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{url}}/notes/{{noteId}}/features",
