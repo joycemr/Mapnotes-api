@@ -11,6 +11,10 @@ from api import db
 class Features(Resource):
 
     def get(self, note_id):
+        note = notesRepo.get_note(note_id)
+        if not note:
+            abort(404, message="Mapnote id={} doesn't exist".format(note_id))
+
         return '', 200
 
     def put(self, note_id):
