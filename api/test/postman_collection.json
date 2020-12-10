@@ -182,7 +182,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
 						"url": {
 							"raw": "{{url}}/notes/{{noteId}}",
@@ -453,6 +453,46 @@
 							]
 						},
 						"description": "check for empty Mapnotes list"
+					},
+					"response": []
+				},
+				{
+					"name": "/notes/<id>/features note has no features",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f952febd-f6a6-43bd-8c59-29f9d04f8697",
+								"exec": [
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/notes/{{noteId}}/features",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notes",
+								"{{noteId}}",
+								"features"
+							]
+						}
 					},
 					"response": []
 				},
