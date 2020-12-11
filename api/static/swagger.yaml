@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: MapNotes api
+  description: Save and query MapNotes for the Zika Client
+  contact:
+    email: michael.joyce@illiniarts.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0
+
+components:
+  schemas:
+    mapNotePostBody:
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+    mapNote:
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        body:
+          type: string
+    featureCollection:
+      # $ref: 'https://geojson.org'
+      description: GEOJSON Feature Collection
+      properties:
+        type:
+          type: FeatureCollection
+        features:
+          type: Feature
+
+paths:
+  /notes:
+    get:
+      summary: Returns a list of all MapNotes
+      responses:
+        '200':
+          content:
+    post:
+      summary: Add a new MapNote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mapNotePostBody'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Cannot add note, title cannot be null
+  /notes/{note_id}:
+    delete:
+      summary: Remove a MapNote
+      responses:
+        '204':
+          description: MapNote deleted
+        '404':
+          description: MapNote not found
+
+
+
