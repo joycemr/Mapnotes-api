@@ -6,7 +6,8 @@
 	"vsintellicode.python.completionsEnabled": true,
 	"cSpell.words": [
 		"getenv",
-		"jsonify"
+		"jsonify",
+		"swaggerui"
 	],
 	"python.formatting.provider": "black",
 }
