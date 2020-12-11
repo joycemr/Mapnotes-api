@@ -1,6 +1,8 @@
-from flask_restful import Resource, abort, reqparse, marshal_with
+from flask_restful import Resource, abort, reqparse
+from flask_apispec import marshal_with
 from api import notesRepo
-from api.main.models.Note import Note, resource_fields
+from api.main.models.Note import Note
+from api.dto.NoteOutgoing import NoteOutgoing
 
 
 class NotesList(Resource):
@@ -11,11 +13,11 @@ class NotesList(Resource):
     parser.add_argument('title', type=str)
     parser.add_argument('body', type=str)
 
-    @marshal_with(resource_fields)
+    @marshal_with(NoteOutgoing(many=True))
     def get(self):
         return notesRepo.get_notes()
 
-    @marshal_with(resource_fields)
+    @marshal_with(NoteOutgoing)
     def post(self):
         args = self.parser.parse_args()
         if not args['title']:
@@ -26,7 +28,7 @@ class NotesList(Resource):
 
 class Notes(Resource):
 
-    @marshal_with(resource_fields)
+    @marshal_with(NoteOutgoing)
     def get(self, note_id):
         note = notesRepo.get_note(note_id)
         if not note:

@@ -43,9 +43,3 @@ class Note(db.Model):
         for noteFeature in self.noteFeatures:
             collection['features'].append(noteFeature.get_feature())
         return collection
-
-
-resource_fields = {
-    'id': fields.Integer,
-    'title': fields.String,
-    'body': fields.String,}
