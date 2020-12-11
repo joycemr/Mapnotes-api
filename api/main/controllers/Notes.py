@@ -1,6 +1,6 @@
 from flask_restful import Resource, abort, reqparse, marshal_with
 from api import notesRepo
-from api.main.data.Note import Note, resource_fields
+from api.main.models.Note import Note, resource_fields
 
 
 class NotesList(Resource):

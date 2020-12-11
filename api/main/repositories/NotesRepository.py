@@ -1,5 +1,5 @@
 from api import db
-from api.main.data.Note import Note
+from api.main.models.Note import Note
 
 class NotesRepository:
 

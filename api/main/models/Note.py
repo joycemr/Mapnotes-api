@@ -1,7 +1,7 @@
 from flask_restful import fields
 from sqlalchemy.orm import relationship
 from api import db
-from api.main.data.NoteFeature import NoteFeature
+from api.main.models.NoteFeature import NoteFeature
 
 
 class Note(db.Model):
