@@ -1,16 +1,16 @@
-from flask_restful import Resource, abort, reqparse, marshal_with
+from flask_restful import abort, reqparse, marshal_with
+from flask_restful_swagger_3 import Resource, swagger
 from api import notesRepo
 from api.main.data.Note import Note, resource_fields
 
 
 class NotesList(Resource):
 
-    # TODO can I use flask request instead of this?
-    # Incoming argument parser
     parser = reqparse.RequestParser()
     parser.add_argument('title', type=str)
     parser.add_argument('body', type=str)
 
+    @swagger.tags(['notes'])
     @marshal_with(resource_fields)
     def get(self):
         return notesRepo.get_notes()
