@@ -29,8 +29,6 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/mapNote'
-    feature:
-      description: GEOJSON Feature
     featureCollection:
       # $ref: 'https://geojson.org'
       description: GEOJSON Feature Collection
@@ -40,6 +38,8 @@ components:
           example: 'Feature Collection'
         features:
           type: object
+    feature:
+      description: GEOJSON Feature
 
 paths:
   /notes:
