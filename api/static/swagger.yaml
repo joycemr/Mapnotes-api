@@ -7,7 +7,7 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  version: 1.0
+  version: '1.0'
 
 components:
   schemas:
@@ -20,19 +20,26 @@ components:
     mapNote:
       properties:
         id:
-          type: number
+          type: integer
         title:
           type: string
         body:
           type: string
+    arrayOfMapNotes:
+        type: array
+        items:
+          $ref: '#/components/schemas/mapNote'
+    feature:
+      description: GEOJSON Feature
     featureCollection:
       # $ref: 'https://geojson.org'
       description: GEOJSON Feature Collection
       properties:
         type:
-          type: FeatureCollection
+          type: string
+          example: 'Feature Collection'
         features:
-          type: Feature
+          type: object
 
 paths:
   /notes:
@@ -40,7 +47,11 @@ paths:
       summary: Returns a list of all MapNotes
       responses:
         '200':
+          description: Success
           content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrayOfMapNotes'
     post:
       summary: Add a new MapNote
       requestBody:
@@ -54,7 +65,27 @@ paths:
           description: Created
         '400':
           description: Cannot add note, title cannot be null
+  
   /notes/{note_id}:
+    parameters:
+      - in: path
+        name: note_id
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+        description: The MapNote ID
+    get:
+      summary: Returns a MapNote
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mapNote'
+        '404':
+          description: MapNote not found
     delete:
       summary: Remove a MapNote
       responses:
@@ -62,6 +93,43 @@ paths:
           description: MapNote deleted
         '404':
           description: MapNote not found
+  
+  /notes/{note_id}/features:
+    parameters:
+      - in: path
+        name: note_id
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+        description: The MapNote ID
+    get:
+      summary: Returns a MapNote's FeatureCollection
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/featureCollection'
 
+        '404':
+          description: MapNote not found
+    put:
+      summary: Adds (or replaces) a FeatureCollection to a MapNote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/featureCollection'
+      responses:
+        '201':
+          description: Created
+        '404':
+          description: MapNote not found
 
+externalDocs:
+  description: GeoJSON Documentation
+  url: https://geojson.org/
 
