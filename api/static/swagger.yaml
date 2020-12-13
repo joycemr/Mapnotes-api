@@ -8,7 +8,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   version: '1.0'
-  
+
 servers:
   - url: http:127.0.0.1:5000
     description: local development host
@@ -47,8 +47,16 @@ components:
 
 paths:
   /notes:
+    summary: Represents a MapNote
+    description:
+      This resource represents a MapNote (or a list of MapNotes)
+      Each MapNote is identified by a numeric `id`
+
     get:
       summary: Returns a list of all MapNotes
+      description:
+        This resource represents a list of MapNotes
+        Each MapNote is identified by a numeric `id`
       responses:
         '200':
           description: Success
@@ -58,6 +66,9 @@ paths:
                 $ref: '#/components/schemas/arrayOfMapNotes'
     post:
       summary: Add a new MapNote
+      description:
+        This resource adds a new MapNote
+        the MapNote `id` is automatically assigned by the server
       requestBody:
         required: true
         content:
@@ -69,8 +80,13 @@ paths:
           description: Created
         '400':
           description: Cannot add note, title cannot be null
-  
+
   /notes/{note_id}:
+    summary: Represents a MapNote
+    description: >
+      This resource represents a MapNote
+      Each MapNote is identified by a numeric `id`
+
     parameters:
       - in: path
         name: note_id
@@ -81,6 +97,8 @@ paths:
         description: The MapNote ID
     get:
       summary: Returns a MapNote
+      description:
+        This resource represents one MapNote identified by it's numeric `id`
       responses:
         '200':
           description: Success
@@ -92,13 +110,22 @@ paths:
           description: MapNote not found
     delete:
       summary: Remove a MapNote
+      description:
+        This resource delete a MapNote by it's numeric `id`
       responses:
         '204':
           description: MapNote deleted
         '404':
           description: MapNote not found
-  
+
   /notes/{note_id}/features:
+    summary: Represents a GeoJSON FeatureCollection
+    description: >
+      This resource represents a geographic FeatureCollection
+      Each FeatureCollection is identified by a numeric `id`
+      More information on FeatureCollection objects is at
+      https://geojson.org/
+
     parameters:
       - in: path
         name: note_id
@@ -109,6 +136,11 @@ paths:
         description: The MapNote ID
     get:
       summary: Returns a MapNote's FeatureCollection
+      description:
+        This resource represents a geographic FeatureCollection
+        Each FeatureCollection is associated with it's MapNote by the
+        numeric `id` of the MapNote.
+        This object follows the GeoJson specification.
       responses:
         '200':
           description: Success
@@ -121,6 +153,11 @@ paths:
           description: MapNote not found
     put:
       summary: Adds (or replaces) a FeatureCollection to a MapNote
+      description:
+        This resource adds a geographic FeatureCollection to a MapNote.
+        The FeatureCollection is associated with it's MapNote by the
+        numeric `id` of the MapNote.
+        This object follows the GeoJson specification.
       requestBody:
         required: true
         content:
@@ -136,3 +173,4 @@ paths:
 externalDocs:
   description: GeoJSON Documentation for Feature and FeatureCollection
   url: https://geojson.org/
+
