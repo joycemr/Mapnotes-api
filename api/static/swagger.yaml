@@ -8,6 +8,10 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   version: '1.0'
+  
+servers:
+  - url: http:127.0.0.1:5000
+    description: local development host
 
 components:
   schemas:
@@ -130,6 +134,5 @@ paths:
           description: MapNote not found
 
 externalDocs:
-  description: GeoJSON Documentation
+  description: GeoJSON Documentation for Feature and FeatureCollection
   url: https://geojson.org/
-
