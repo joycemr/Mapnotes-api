@@ -9,7 +9,7 @@
 			"name": "Mapnotes",
 			"item": [
 				{
-					"name": "/notes return list",
+					"name": "/notes list status 200",
 					"event": [
 						{
 							"listen": "test",
@@ -49,7 +49,7 @@
 					"response": []
 				},
 				{
-					"name": "/notes add a new note",
+					"name": "/notes add a new note status 201",
 					"event": [
 						{
 							"listen": "test",
@@ -106,7 +106,7 @@
 					"response": []
 				},
 				{
-					"name": "/notes return non-empty list",
+					"name": "/notes non-empty list status 200",
 					"event": [
 						{
 							"listen": "test",
@@ -154,7 +154,7 @@
 					"response": []
 				},
 				{
-					"name": "/notes return one note",
+					"name": "/notes one note status 200",
 					"event": [
 						{
 							"listen": "test",
@@ -199,7 +199,7 @@
 					"response": []
 				},
 				{
-					"name": "/notes",
+					"name": "/notes status 204",
 					"event": [
 						{
 							"listen": "test",
@@ -233,7 +233,7 @@
 					"response": []
 				},
 				{
-					"name": "/notes return 404",
+					"name": "/notes status 404",
 					"event": [
 						{
 							"listen": "test",
@@ -267,7 +267,7 @@
 					"response": []
 				},
 				{
-					"name": "/notes empty title",
+					"name": "/notes send empty title status 400",
 					"event": [
 						{
 							"listen": "test",
