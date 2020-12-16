@@ -7,8 +7,6 @@ from api.dto.NoteOutgoing import NoteOutgoing
 
 class NotesList(Resource):
 
-    # TODO can I use flask request instead of this?
-    # Incoming argument parser
     parser = reqparse.RequestParser()
     parser.add_argument('title', type=str)
     parser.add_argument('body', type=str)
