@@ -17,11 +17,11 @@ services:
     container_name: mapnotes-flask-restful-api
     build: .
     environment:
-      - DB_HOST=db
-      - DB_NAME=mapnotes_api
-      - DB_USER=mapnotes_api_user
-      - DB_PASSWORD=password
-      - DB_PORT=5432
+      - DB_HOST=${CONTAINER_DB_HOST}
+      - DB_PORT=${CONTAINER_DB_PORT}
+      - DB_NAME=${CONTAINER_DB_NAME}
+      - DB_USER=${CONTAINER_DB_USER}
+      - DB_PASSWORD=${CONTAINER_DB_PASSWORD}
     ports:
       - "5000:5000"
     depends_on:

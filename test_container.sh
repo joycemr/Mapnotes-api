@@ -1,4 +1,4 @@
-docker-compose up -d
+docker-compose --env-file .env.docker up -d
 
 sleep 6s
 
@@ -10,4 +10,4 @@ newman run api/test/postman_collection.json -e api/test/postman_local_environmen
 
 sleep 1s
 
-docker-compose down
+docker-compose --env-file .env.docker down

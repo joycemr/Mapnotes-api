@@ -3,4 +3,5 @@ WORKDIR /app
 COPY requirements.txt .
 COPY app.py .
 COPY api api
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
