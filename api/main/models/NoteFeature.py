@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
 from geoalchemy2.shape import from_shape, to_shape
 from shapely.geometry import shape
-import geojson
+from geojson import Feature
 from api import db
 
 class NoteFeature(db.Model):
@@ -34,4 +34,4 @@ class NoteFeature(db.Model):
 
 	def get_feature(self):
 		g1 = to_shape(self.geometry)
-		return geojson.Feature(geometry=g1, properties=None)
+		return Feature(geometry=g1, properties=None)
