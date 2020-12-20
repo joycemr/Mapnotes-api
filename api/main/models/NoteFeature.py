@@ -23,14 +23,14 @@ class NoteFeature(db.Model):
 	def __str__(self):
 		return 'Note_id: {} Feature_id: {} Geometry'.format(self.notes_id, self.id, self.get_feature())
 
-	def geojson_feature_to_WKBElement(self, geojson_feature):
+	def geojson_feature_to_WKBElement(self, feature):
 		""" convert a geojson geometry feature to a WKBElement
 		Args:
 			geojson_feature (geojson): a feature in geojson
 		Returns:
 			geoalchemy2.elements.WKBElement: in GEOAlchemy this wraps a WKB value
 		"""
-		return from_shape(shape(geojson_feature['geometry']))
+		return from_shape(shape(feature['geometry']))
 
 	def get_feature(self):
 		""" Return the Feature object
