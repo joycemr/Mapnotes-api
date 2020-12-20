@@ -33,5 +33,9 @@ class NoteFeature(db.Model):
 		return from_shape(shape(geojson_feature['geometry']))
 
 	def get_feature(self):
+		""" Return the Feature object
+		Returns:
+			geojson.Feature: a geojson Feature
+		"""
 		g1 = to_shape(self.geometry)
 		return Feature(geometry=g1, properties=None)
