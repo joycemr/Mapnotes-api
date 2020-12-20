@@ -37,5 +37,4 @@ class NoteFeature(db.Model):
 		Returns:
 			geojson.Feature: a geojson Feature
 		"""
-		g1 = to_shape(self.geometry)
-		return Feature(geometry=g1, properties=None)
+		return Feature(geometry=to_shape(self.geometry), properties=None)
