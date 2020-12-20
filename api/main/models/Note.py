@@ -1,5 +1,6 @@
 from flask_restful import fields
 from sqlalchemy.orm import relationship
+from geojson import FeatureCollection
 from api import db
 from api.main.models.NoteFeature import NoteFeature
 
@@ -39,7 +40,7 @@ class Note(db.Model):
         """
         if len(self.noteFeatures) == 0:
             return {}
-        collection = {"type": "FeatureCollection", "features": []}
+        features = []
         for noteFeature in self.noteFeatures:
-            collection['features'].append(noteFeature.get_feature())
-        return collection
+            features.append(noteFeature.get_feature())
+        return FeatureCollection(features)
