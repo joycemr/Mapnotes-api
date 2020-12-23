@@ -2,7 +2,7 @@
 	"python.linting.enabled": false,
 	"python.pythonPath": "${workspaceRoot}/venv",
 	"python.venvPath": "${workspaceRoot}/venv",
-	"python.analysis.extraPaths": ["api"],
+	"python.autoComplete.extraPaths": ["api"],
 	"vsintellicode.python.completionsEnabled": true,
 	"cSpell.words": [
 		"getenv",
