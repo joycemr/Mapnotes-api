@@ -2,7 +2,8 @@
 	"python.linting.enabled": false,
 	"python.pythonPath": "${workspaceRoot}/venv",
 	"python.venvPath": "${workspaceRoot}/venv",
-	"python.autoComplete.extraPaths": ["api"],
+	"python.autoComplete.extraPaths": ["${workspaceRoot}/api"], // fixes imports from local objects
+	// "python.autoComplete.extraPaths": ["api"], // fixes intellisense
 	"vsintellicode.python.completionsEnabled": true,
 	"cSpell.words": [
 		"getenv",
