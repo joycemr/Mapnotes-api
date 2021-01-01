@@ -1,7 +1,6 @@
 FROM python:3
 WORKDIR /app
-COPY requirements.txt .
-COPY app.py .
+COPY requirements.txt app.py ./
 COPY api api
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
