@@ -6,8 +6,6 @@ services:
     container_name: mapnotes-flask-restful-db
     volumes:
       - ./sql/mapNotes.sql:/docker-entrypoint-initdb.d/mapNotes.sql
-    ports:
-      - 5432:5432
     environment:
       - POSTGRES_DB=mapnotes_api
       - POSTGRES_USER=mapnotes_api_user
