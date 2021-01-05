@@ -1,4 +1,4 @@
-docker-compose --env-file .env.docker up -d
+docker-compose --env-file .env.test.container up -d
 
 sleep 6s
 
