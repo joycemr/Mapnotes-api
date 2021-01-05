@@ -28,4 +28,8 @@ services:
       - "db"
     command: ["python", "app.py"]
 
+networks:
+  default:
+    name: mapnotes_flask_app_test
+
 
