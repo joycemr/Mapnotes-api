@@ -21,7 +21,7 @@ services:
       - DB_USER=${CONTAINER_DB_USER}
       - DB_PASSWORD=${CONTAINER_DB_PASSWORD}
     ports:
-      - "5000:5000"
+      - "5001:5000"
     depends_on:
       - "db"
     command: ["python", "app.py"]

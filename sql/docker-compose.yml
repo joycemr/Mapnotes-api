@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgis/postgis:12-master
+    container_name: mapnotes-flask-app-local-db
+    volumes:
+      - ./mapNotes.sql:/docker-entrypoint-initdb.d/mapNotes.sql
+      - ./data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=mapnotes_api
+      - POSTGRES_USER=mapnotes_api_user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+
+networks:
+  default:
+    name: mapnotes_flask_app_local_net

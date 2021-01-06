@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "url",
-			"value": "api:5000",
+			"value": "localhost:5001",
 			"enabled": true
 		},
 		{

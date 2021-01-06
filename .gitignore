@@ -1,2 +1,5 @@
 venv/
 *.pyc
+
+# postgis data files for the local vevelopment database
+sql/data
